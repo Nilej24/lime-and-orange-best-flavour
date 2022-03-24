@@ -1,6 +1,13 @@
+// idk if there's a point in putting these things in their managers
+// could be in gameManager
 const cellData = ['', '', '', '', '', '', '', '', ''];
+let gameOver = false;
+// could be in playerManager
 const players = ["x", "o"];
+const playerNames = ["x", "o"];
 let currentPlayer;
+
+// they're shared between stuff anyways so namespacing would just make things longer to type
 
 const playerManager = (function () {
   // set player at start
@@ -52,20 +59,26 @@ const gameManager = (function () {
 const displayManager = (function () {
   // elements from dom
   const cells = document.querySelectorAll(".cell");
+  const xName = document.querySelector("#player-x-name");
+  const oName = document.querySelector("#player-o-name");
+  const nameInputs = [xName, oName];
   
   // clicking a cell
   cells.forEach(cell => cell.addEventListener("click", function () {
     const pos = +cell.dataset.pos;
-    // if cell is empty (so move is made):
-    if(!cellData[pos]) {
+    // if a move is made
+    if(!cellData[pos] && !gameOver) {
       // update data + display
       cellData[pos] = currentPlayer;
       drawCells();
       // check if game is over
-      if(gameManager.checkWin() || gameManager.checkDraw())
+      if(gameManager.checkWin() || gameManager.checkDraw()) {
+        gameOver = true;
         showGameOver();
-      else
+      } else {
         playerManager.switchPlayer();
+        drawTurnText();
+      }
     }
   }));
 
@@ -78,6 +91,27 @@ const displayManager = (function () {
 
   // show game over display
   function showGameOver() {
+    const winnerMessage = document.querySelector(".winner-message");
+  }
+
+  // for changing player names
+  for(let i = 0; i < 2; i++) {
+    const input = nameInputs[i];
+    input.addEventListener("change", function () {
+      playerNames[i] = input.value;
+      drawTurnText();
+    });
+  }
+  
+  // for showing who's turn it is
+  function drawTurnText() {
+    const display = document.querySelector(".player-turn");
+    let playerName;
+    if(currentPlayer == "x")
+      playerName = playerNames[0];
+    else
+      playerName = playerNames[1];
+    display.textContent = playerName + "'s turn";
   }
 
   return {};

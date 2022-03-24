@@ -1,7 +1,50 @@
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-middle {
+  display: flex;
+  flex-direction: column;
+}
+
+.top .player-profile {
+  width: 250px;
+}
+
+.top .player-symbol {
+  font-size: 40px;
+}
+
+.top label,
+.top input {
+  cursor: pointer;
+}
+
+.top label:hover {
+  background-color: #f3f3f3;
+}
+
+.top input {
+  background-color: transparent;
+  border: none;
+  width: 100px;
+}
+
+.top input:focus-visible {
+  outline: none;
+}
+
 .board {
   display: grid;
   grid-template-columns: 100px 100px 100px;
   grid-template-rows: 100px 100px 100px;
+  justify-content: center;
 }
 
 .cell {
@@ -11,4 +54,30 @@
 
   font-size: 50px;
   border: 1px solid black;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.game-over {
+  margin: 0;
+  padding: 0;
+  margin-top: 30px;
+  letter-spacing: 10px;
+}
+
+.winner-text {
+  margin-top: 15px;
+}
+
+.restart {
+  appearance: none;
+  -webkit-appearance: none;
 }
